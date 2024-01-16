@@ -1,0 +1,69 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: String!
+  roleId: String!
+  username: String!
+  displayName: String
+  role: Role!
+}
+
+type Role {
+  id: String!
+  name: String!
+}
+
+type Tour {
+  id: String!
+  travelId: String!
+  name: String!
+  startingDate: String!
+  endingDate: String!
+  price: Int!
+  travel: Travel!
+}
+
+type Mood {
+  nature: Int!
+  relax: Int!
+  history: Int!
+  culture: Int!
+  party: Int!
+}
+
+type Travel {
+  id: String!
+  slug: String!
+  name: String!
+  description: String!
+  numberOfDays: Int!
+  moods: Mood!
+}
+
+type Query {
+  """Get user by ID"""
+  getUserById(id: String!): User
+
+  """Get all users"""
+  getAllUsers: [User!]!
+
+  """Get tour by ID"""
+  getTourById(id: String!): Tour
+
+  """Get all tours"""
+  getAllTours: [Tour!]!
+
+  """Get travel by ID"""
+  getTravelById(id: String!): Travel
+
+  """Get all travels"""
+  getAllTravels: [Travel!]!
+
+  """Get role by ID"""
+  getRoleById(id: String!): Role
+
+  """Get all roles"""
+  getAllRoles: [Role!]!
+}
