@@ -28,12 +28,12 @@ This application should manage CRUD operation for travel and tours and simulate 
 6. (optional) A page that allows to interact with the tour end-points described above
 
 ## What we would like to see?
-- NestJs and idiomatic syntax (back-end)  
+- NestJs and idiomatic syntax (back-end) OK  
 - VueJs (or Nuxt), Vuex (front-end)  
-- Automated tests (back-end)  
-- GraphQL endpoints (back-end)  
-- Usage of ORM  (back-end)  
-- Good project setup with linter/formatter (front-end/back-end)
+- Automated tests (back-end)   
+- GraphQL endpoints (back-end) OK
+- Usage of ORM  (back-end)  OK
+- Good project setup with linter/formatter (front-end/back-end) OK
 
 ## Notes
 - You should provide instructions on how to set up and start the project in local environment

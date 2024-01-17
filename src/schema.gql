@@ -2,17 +2,26 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Role {
+  id: String!
+  name: String!
+}
+
 type User {
   id: String!
   roleId: String!
   username: String!
+  password: String!
   displayName: String
   role: Role!
 }
 
-type Role {
-  id: String!
-  name: String!
+type Mood {
+  nature: Int!
+  relax: Int!
+  history: Int!
+  culture: Int!
+  party: Int!
 }
 
 type Tour {
@@ -25,14 +34,6 @@ type Tour {
   travel: Travel!
 }
 
-type Mood {
-  nature: Int!
-  relax: Int!
-  history: Int!
-  culture: Int!
-  party: Int!
-}
-
 type Travel {
   id: String!
   slug: String!
@@ -40,6 +41,20 @@ type Travel {
   description: String!
   numberOfDays: Int!
   moods: Mood!
+  tours: [Tour!]
+}
+
+type LoginResponse {
+  token: String!
+  user: User!
+}
+
+input MoodInput {
+  nature: Int!
+  relax: Int!
+  history: Int!
+  culture: Int!
+  party: Int!
 }
 
 type Query {
@@ -60,10 +75,39 @@ type Query {
 
   """Get all travels"""
   getAllTravels: [Travel!]!
+}
 
-  """Get role by ID"""
-  getRoleById(id: String!): Role
+type Mutation {
+  createUser(createUserData: CreateUserInput!): User!
+  createTour(createTourData: CreateTourInput!): Tour!
+  createTravel(createTravelData: CreateTravelInput!): Travel!
+  login(loginUserInput: LoginUserInput!): LoginResponse!
+}
 
-  """Get all roles"""
-  getAllRoles: [Role!]!
+input CreateUserInput {
+  username: String!
+  displayName: String
+  password: String!
+  roleName: String! = "user"
+}
+
+input CreateTourInput {
+  travelId: String!
+  name: String!
+  startingDate: String!
+  endingDate: String!
+  price: Int!
+}
+
+input CreateTravelInput {
+  slug: String!
+  name: String!
+  description: String!
+  numberOfDays: Int!
+  moods: MoodInput!
+}
+
+input LoginUserInput {
+  username: String!
+  password: String!
 }

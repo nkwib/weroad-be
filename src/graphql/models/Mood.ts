@@ -1,19 +1,20 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
+@InputType('MoodInput')
 export class Mood {
-    @Field((type) => Int)
-    nature: number;
-    
-    @Field((type) => Int)
-    relax: number;
-    
-    @Field((type) => Int)
-    history: number;
-    
-    @Field((type) => Int)
-    culture: number;
-    
-    @Field((type) => Int)
-    party: number;
+  @Field(() => Int)
+  nature: number;
+
+  @Field(() => Int)
+  relax: number;
+
+  @Field(() => Int)
+  history: number;
+
+  @Field(() => Int)
+  culture: number;
+
+  @Field(() => Int)
+  party: number;
 }

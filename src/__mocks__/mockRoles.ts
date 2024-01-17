@@ -7,4 +7,8 @@ export const mockRoles = [
     id: '9442703c-dd4f-4e36-9554-a60574c408be',
     name: 'editor',
   },
+  {
+    id: 'gaf18948-721e-49f5-aa7f-bed1a5415cb6',
+    name: 'user',
+  },
 ];
