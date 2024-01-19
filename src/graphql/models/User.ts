@@ -34,7 +34,7 @@ export class User {
   displayName?: string;
 
   @ManyToOne(() => Role)
-  @JoinColumn({ name: 'roleId' }) // This will join on the roleId column
+  @JoinColumn({ name: 'roleId' })
   @Field(() => Role)
-  role: Role; // Relationship to Role
+  role: Role;
 }

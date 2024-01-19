@@ -30,18 +30,34 @@ type Tour {
   name: String!
   startingDate: String!
   endingDate: String!
-  price: Int!
+  price: Float!
   travel: Travel!
 }
 
 type Travel {
   id: String!
+  isPublic: Boolean!
   slug: String!
   name: String!
   description: String!
   numberOfDays: Int!
+  img: String!
   moods: Mood!
-  tours: [Tour!]
+  tours: [Tour!]!
+}
+
+type PaginatedToursResult {
+  tours: [Tour!]!
+  total: Int!
+  page: Int!
+  limit: Int!
+}
+
+type PaginatedTravelsResult {
+  travels: [Travel!]!
+  total: Int!
+  page: Int!
+  limit: Int!
 }
 
 type LoginResponse {
@@ -68,19 +84,23 @@ type Query {
   getTourById(id: String!): Tour
 
   """Get all tours"""
-  getAllTours: [Tour!]!
+  getAllTours(page: Int! = 0, limit: Int! = 10, priceFrom: Int, priceTo: Int, startingDate: String, endingDate: String, sortBy: String): PaginatedToursResult!
 
   """Get travel by ID"""
   getTravelById(id: String!): Travel
 
   """Get all travels"""
-  getAllTravels: [Travel!]!
+  getAllTravels(page: Int! = 0, limit: Int! = 10): PaginatedTravelsResult!
 }
 
 type Mutation {
   createUser(createUserData: CreateUserInput!): User!
   createTour(createTourData: CreateTourInput!): Tour!
+  updateTour(updateTourData: UpdateTourInput!): Tour!
+  deleteTour(id: String!): Travel!
   createTravel(createTravelData: CreateTravelInput!): Travel!
+  updateTravel(updateTravelData: UpdateTravelInput!): Travel!
+  deleteTravel(id: String!): Travel!
   login(loginUserInput: LoginUserInput!): LoginResponse!
 }
 
@@ -99,12 +119,32 @@ input CreateTourInput {
   price: Int!
 }
 
+input UpdateTourInput {
+  id: String!
+  name: String
+  startingDate: String
+  endingDate: String
+  price: Int
+}
+
 input CreateTravelInput {
-  slug: String!
+  slug: String
   name: String!
+  isPublic: Boolean! = false
+  img: String
   description: String!
   numberOfDays: Int!
   moods: MoodInput!
+}
+
+input UpdateTravelInput {
+  id: String!
+  name: String
+  isPublic: Boolean
+  img: String
+  description: String
+  numberOfDays: Int
+  moods: MoodInput
 }
 
 input LoginUserInput {

@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoleService } from './RoleService';
-import { Role } from 'src/graphql/models/Role';
+import { Role } from '../graphql/models/Role';
+import { AppModule } from '../app.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Role])],
-  controllers: [],
+  imports: [forwardRef(() => AppModule), TypeOrmModule.forFeature([Role])],
   providers: [RoleService],
-  exports: [RoleService], // this makes sure that the RoleService is initialized before the UsersModule
+  exports: [RoleService],
 })
 export class RolesModule {}

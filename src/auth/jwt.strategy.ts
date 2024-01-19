@@ -1,15 +1,14 @@
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
-import { AuthService } from './auth.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private authService: AuthService) {
+  constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
-      secretOrKey: 'secretKey', // TODO: Move to env
+      ignoreExpiration: process.env.NODE_ENV === 'development',
+      secretOrKey: process.env.JWT_SECRET,
     });
   }
 
@@ -17,20 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     return {
       userId: payload.sub,
       username: payload.username,
-      role: payload.role,mutation {
-        login(loginUserInput:{
-          username: "admin"
-          password: "password"
-        }) {
-          token
-          user {
-            username
-            role {
-              name
-            }
-          }
-        }
-      }
+      roleId: payload.roleId,
     };
   }
 }

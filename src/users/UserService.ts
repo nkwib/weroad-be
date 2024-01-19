@@ -1,9 +1,9 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/graphql/models/User';
+import { User } from '../graphql/models/User';
 import { Repository } from 'typeorm';
 import { CreateUserInput } from './CreateUserInput';
-import { Role } from 'src/graphql/models/Role';
+import { Role } from '../graphql/models/Role';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -26,13 +26,13 @@ export class UserService implements OnModuleInit {
     if (!adminExists) {
       const adminRole = await this.roleRepository.findOneBy({ name: 'admin' });
       const newAdmin = this.userRepository.create({
-        username: 'admin',
-        password: await bcrypt.hash('password', 10),
+        username: process.env.ADMIN_USERNAME,
+        password: await bcrypt.hash(process.env.ADMIN_PASSWORD, 10),
         role: adminRole,
       });
       await this.userRepository.save(newAdmin);
     } else {
-      console.log('Admin user already exists.');
+      console.log('Skipping Admin Creation - user already exists.');
     }
   }
 

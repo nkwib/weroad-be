@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Role } from 'src/graphql/models/Role';
+import { Role } from '../graphql/models/Role';
 import { Repository } from 'typeorm';
 
 @Injectable()

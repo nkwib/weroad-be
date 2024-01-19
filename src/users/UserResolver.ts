@@ -11,7 +11,10 @@ import { Role } from '../graphql/models/Role';
 import { CreateUserInput } from './CreateUserInput';
 import { UserService } from './UserService';
 import { RoleService } from './RoleService';
-import { Roles } from 'src/auth/roles.factory';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -24,13 +27,11 @@ export class UserResolver {
     nullable: true,
     description: 'Get user by ID',
   })
-  @Roles('admin')
   getUserById(@Args('id') id: string) {
     return this.userService.getUserById(id);
   }
 
   @Query(() => [User], { description: 'Get all users' })
-  @Roles('admin')
   getAllUsers() {
     return this.userService.getUsers();
   }
@@ -41,7 +42,8 @@ export class UserResolver {
   }
 
   @Mutation(() => User)
-  // @Roles('admin')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   async createUser(@Args('createUserData') createUserData: CreateUserInput) {
     const role = await this.roleService.getRoleByName(createUserData.roleName);
     if (!role) {

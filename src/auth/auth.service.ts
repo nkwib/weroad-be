@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { User } from 'src/graphql/models/User';
+import { User } from '../graphql/models/User';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -38,7 +38,7 @@ export class AuthService {
       token: this.jwtService.sign({
         username: user.username,
         sub: user.id,
-        role: user.role.name,
+        roleId: user.roleId,
       }),
       user: userWithoutPassword,
     };
